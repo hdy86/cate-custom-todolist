@@ -1,7 +1,28 @@
+import styled from "styled-components";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { toDoState, toDoSelector, categoryState, Categories } from "../atoms";
+import { toDoSelector, categoryState, Categories } from "../atoms";
 import CreateToDo from "./CreateToDo";
 import ToDo from "./ToDo";
+
+const Container = styled.div`
+  max-width: 480px;
+  margin: 0 auto;
+  padding: 0 20px;
+`;
+const Header = styled.header`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+`;
+const Title = styled.h1`
+  font-size: 48px;
+  font-weight: bold;
+
+  @media all and (max-width: 767px) {
+    font-size: 30px;
+  }
+`;
 
 function ToDoList() {
   const toDos = useRecoilValue(toDoSelector);
@@ -11,8 +32,10 @@ function ToDoList() {
   };
 
   return (
-    <div>
-      <h1>To Do List</h1>
+    <Container>
+      <Header>
+        <Title>To Do List</Title>
+      </Header>
       <hr />
       <CreateToDo />
       <select value={category} onInput={onInput}>
@@ -23,7 +46,7 @@ function ToDoList() {
       {toDos?.map((toDo) => (
         <ToDo key={toDo.id} {...toDo} />
       ))}
-    </div>
+    </Container>
   );
 }
 
