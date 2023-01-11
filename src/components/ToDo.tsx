@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useSetRecoilState } from "recoil";
-import { Categories, IToDo, toDoState } from "../atoms";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { categoriesState, IToDo, toDoState } from "../atoms";
 
 const Li = styled.li`
   margin: 30px 0;
@@ -23,6 +23,7 @@ const Btn = styled.button`
 `;
 
 function ToDo({ id, text, category }: IToDo) {
+  const categories = useRecoilValue(categoriesState);
   const setToDos = useSetRecoilState(toDoState);
   const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     const {
@@ -43,20 +44,13 @@ function ToDo({ id, text, category }: IToDo) {
     <Li>
       <Text>{text}</Text>
       <BtnWrap>
-        {category !== Categories.TO_DO && (
-          <Btn name={Categories.TO_DO} onClick={onClick}>
-            To Do
-          </Btn>
-        )}
-        {category !== Categories.DOING && (
-          <Btn name={Categories.DOING} onClick={onClick}>
-            Doing
-          </Btn>
-        )}
-        {category !== Categories.DONE && (
-          <Btn name={Categories.DONE} onClick={onClick}>
-            Done
-          </Btn>
+        {categories.map(
+          (item) =>
+            item !== category && (
+              <Btn key={item} name={item} onClick={onClick}>
+                {item}
+              </Btn>
+            )
         )}
       </BtnWrap>
     </Li>

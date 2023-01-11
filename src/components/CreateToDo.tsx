@@ -18,7 +18,7 @@ const Input = styled.input`
   color: ${(props) => props.theme.textColor};
 `;
 const Btn = styled.button`
-  padding: 10px;
+  width: 40px;
   border: none;
   border-radius: 10px;
   background: ${(props) => props.theme.accentColor};
@@ -49,9 +49,9 @@ function CreateToDo() {
     <Form onSubmit={handleSubmit(handleValid)}>
       <Input
         {...register("toDo", { required: "Please write To Do" })}
-        placeholder="Write a to do"
+        placeholder={`Add ${category}'s to do`}
       />
-      <Btn>Add</Btn>
+      <Btn>+</Btn>
     </Form>
   );
 }
