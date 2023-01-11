@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/cate-custom-todolist/static/js/main.f22a721b.js",
+    "index.html": "/cate-custom-todolist/index.html",
+    "main.f22a721b.js.map": "/cate-custom-todolist/static/js/main.f22a721b.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.f22a721b.js"
+  ]
+}
