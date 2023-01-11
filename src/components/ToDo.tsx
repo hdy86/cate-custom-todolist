@@ -19,7 +19,7 @@ const Btn = styled.button`
   border: none;
   border-radius: 10px;
   background: #fff;
-  cursor: pointer;
+  cursor: ${(props) => !props.disabled && "pointer"};
 `;
 
 function ToDo({ id, text, category }: IToDo) {
@@ -44,14 +44,16 @@ function ToDo({ id, text, category }: IToDo) {
     <Li>
       <Text>{text}</Text>
       <BtnWrap>
-        {categories.map(
-          (item) =>
-            item !== category && (
-              <Btn key={item} name={item} onClick={onClick}>
-                {item}
-              </Btn>
-            )
-        )}
+        {categories.map((item) => (
+          <Btn
+            key={item}
+            disabled={item === category}
+            name={item}
+            onClick={onClick}
+          >
+            {item}
+          </Btn>
+        ))}
       </BtnWrap>
     </Li>
   );
