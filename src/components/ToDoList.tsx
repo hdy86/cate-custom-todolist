@@ -46,6 +46,10 @@ const Btn = styled.button<{ isActive: boolean }>`
   font-weight: bold;
   cursor: pointer;
 `;
+const Ul = styled.ul`
+  list-style: none;
+  padding: 0 20px;
+`;
 
 function ToDoList() {
   const toDos = useRecoilValue(toDoSelector);
@@ -82,9 +86,11 @@ function ToDoList() {
       </BtnWrap>
 
       <CreateToDo />
-      {toDos?.map((toDo) => (
-        <ToDo key={toDo.id} {...toDo} />
-      ))}
+      <Ul>
+        {toDos?.map((toDo) => (
+          <ToDo key={toDo.id} {...toDo} />
+        ))}
+      </Ul>
     </Container>
   );
 }
