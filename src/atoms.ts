@@ -1,5 +1,10 @@
 import { atom, selector } from "recoil";
 
+export const isDarkAtom = atom({
+  key: "isDark",
+  default: false,
+});
+
 export const TODO_KEY = "toDos";
 export const CATEGORIES_KEY = "categories";
 

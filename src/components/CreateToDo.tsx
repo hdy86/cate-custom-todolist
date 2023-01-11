@@ -11,11 +11,15 @@ const Form = styled.form`
 const Input = styled.input`
   flex: 1;
   padding: 15px;
-  border: 2px solid #fff;
+  border: 2px solid ${(props) => props.theme.lineColor};
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.7);
+  background: ${(props) => props.theme.btnBgColor};
   font-size: 16px;
   color: ${(props) => props.theme.textColor};
+
+  &::placeholder {
+    color: ${(props) => props.theme.textColor};
+  }
 `;
 const Btn = styled.button`
   width: 40px;

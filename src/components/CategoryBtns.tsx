@@ -12,11 +12,15 @@ const Form = styled.form`
 const Input = styled.input`
   flex: 1;
   padding: 15px;
-  border: 2px solid #fff;
+  border: 2px solid ${(props) => props.theme.lineColor};
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.7);
+  background: ${(props) => props.theme.btnBgColor};
   font-size: 16px;
   color: ${(props) => props.theme.textColor};
+
+  &::placeholder {
+    color: ${(props) => props.theme.textColor};
+  }
 `;
 const Btn = styled.button`
   width: 40px;
@@ -34,16 +38,17 @@ const ToDoBtnWrap = styled.div`
   gap: 10px;
   padding-bottom: 40px;
   margin-bottom: 40px;
-  border-bottom: 2px solid #888;
+  border-bottom: 2px solid ${(props) => props.theme.lineColor};
 `;
 const ToDoBtn = styled.button<{ isActive: boolean }>`
   padding: 10px;
   border-width: 4px;
   border-style: solid;
   border-color: ${(props) =>
-    props.isActive ? props.theme.accentColor : "#fff"};
+    props.isActive ? props.theme.accentColor : props.theme.lineColor};
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.6);
+  background: ${(props) =>
+    props.isActive ? props.theme.btnPickBgColor : props.theme.btnBgColor};
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
   font-size: 18px;
   color: ${(props) =>

@@ -1,6 +1,10 @@
 import React from "react";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
+import { ThemeProvider } from "styled-components";
+import { darkTheme, lightTheme } from "./theme";
+import { isDarkAtom } from "./atoms";
 import ToDoList from "./components/ToDoList";
+import { useRecoilState } from "recoil";
 
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400&display=swap');
@@ -68,11 +72,40 @@ a {
 }
 `;
 
+const ModeBtn = styled.button`
+  position: fixed;
+  top: 10px;
+  right: 10px;
+  width: 40px;
+  height: 40px;
+  margin: 0;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  img {
+    width: 100%;
+  }
+`;
+
 function App() {
+  const [isDark, setIsDark] = useRecoilState(isDarkAtom);
+
   return (
     <>
-      <GlobalStyle />
-      <ToDoList />
+      <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
+        <ModeBtn onClick={() => setIsDark((prev) => !prev)}>
+          {isDark ? (
+            <img src="https://cdn-icons-png.flaticon.com/512/8637/8637690.png" />
+          ) : (
+            <img src="https://cdn-icons-png.flaticon.com/512/8443/8443248.png" />
+          )}
+        </ModeBtn>
+
+        <GlobalStyle />
+        <ToDoList />
+      </ThemeProvider>
     </>
   );
 }
