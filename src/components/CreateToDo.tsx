@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useRecoilValue, useSetRecoilState } from "recoil";
-import { categoryState, toDoState } from "../atoms";
+import { useRecoilState, useRecoilValue } from "recoil";
+import { categoryState, toDoState, TODO_KEY } from "../atoms";
 
 const Form = styled.form`
   display: flex;
@@ -32,13 +33,17 @@ interface IForm {
 }
 
 function CreateToDo() {
-  const setToDos = useSetRecoilState(toDoState);
   const category = useRecoilValue(categoryState);
+  const [toDos, setToDos] = useRecoilState(toDoState);
   const { register, handleSubmit, setValue } = useForm<IForm>();
   const handleValid = ({ toDo }: IForm) => {
     setToDos((state) => [{ id: Date.now(), text: toDo, category }, ...state]);
     setValue("toDo", "");
   };
+
+  useEffect(() => {
+    localStorage.setItem(TODO_KEY, JSON.stringify(toDos));
+  }, [toDos]);
 
   return (
     <Form onSubmit={handleSubmit(handleValid)}>
