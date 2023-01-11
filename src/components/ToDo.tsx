@@ -21,11 +21,15 @@ const Btn = styled.button`
   background: #fff;
   cursor: ${(props) => !props.disabled && "pointer"};
 `;
+const DeleteBtn = styled(Btn)`
+  background: #ff2e4b;
+  color: #fff;
+`;
 
 function ToDo({ id, text, category }: IToDo) {
   const categories = useRecoilValue(categoriesState);
   const setToDos = useSetRecoilState(toDoState);
-  const onClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onChangeCategory = (e: React.MouseEvent<HTMLButtonElement>) => {
     const {
       currentTarget: { name },
     } = e;
@@ -39,6 +43,12 @@ function ToDo({ id, text, category }: IToDo) {
       ];
     });
   };
+  const onDeleteCategory = () => {
+    setToDos((state) => {
+      const targetIdx = state.findIndex((item) => item.id === id);
+      return [...state.slice(0, targetIdx), ...state.slice(targetIdx + 1)];
+    });
+  };
 
   return (
     <Li>
@@ -49,11 +59,12 @@ function ToDo({ id, text, category }: IToDo) {
             key={item}
             disabled={item === category}
             name={item}
-            onClick={onClick}
+            onClick={onChangeCategory}
           >
             {item}
           </Btn>
         ))}
+        <DeleteBtn onClick={onDeleteCategory}>삭제</DeleteBtn>
       </BtnWrap>
     </Li>
   );
